@@ -54,7 +54,7 @@ public class UtilisateurController {
         return "connexionUtilisateur";
     }
 
-    @GetMapping("/selection_utilisateur_par_id")
+    @GetMapping("/selection_utilisateur_par_id/{idUtilisateur}")
     public String selectionUtilisateurParId(HttpServletRequest request, @RequestParam(name="idUtilisateur") Long idUtilisateur, Model model) {
     	Utilisateur utilisateur = restTemplate.getForObject(url + "/" + idUtilisateur, Utilisateur.class);
     	model.addAttribute(ATT_UTILISATEUR, utilisateur);
@@ -77,9 +77,9 @@ public class UtilisateurController {
 //		}
 //    }
 
-    @GetMapping("/liste_utilisateurs")
+    @GetMapping("/listeUtilisateurs")
     public String getListeUtilisateurs(Model model) {
-        Utilisateur[] listeUtilisateurs = restTemplate.getForObject(url, Utilisateur[].class);
+        Utilisateur[] listeUtilisateurs = restTemplate.getForObject(url + "/listeUtilisateurs", Utilisateur[].class);
         model.addAttribute(ATT_LISTE_UTILISATEURS, Arrays.asList(listeUtilisateurs));
         return "listeUtilisateurs";
     }
