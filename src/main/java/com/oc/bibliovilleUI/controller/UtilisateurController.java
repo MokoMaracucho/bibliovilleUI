@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +57,7 @@ public class UtilisateurController {
     }
 
     @GetMapping("/selection_utilisateur_par_id/{idUtilisateur}")
-    public String selectionUtilisateurParId(HttpServletRequest request, @RequestParam(name="idUtilisateur") Long idUtilisateur, Model model) {
+    public String selectionUtilisateurParId(HttpServletRequest request, @PathVariable(name="idUtilisateur") Long idUtilisateur, Model model) {
     	Utilisateur utilisateur = restTemplate.getForObject(url + "/" + idUtilisateur, Utilisateur.class);
     	model.addAttribute(ATT_UTILISATEUR, utilisateur);
     	return "afficherUtilisateur";
