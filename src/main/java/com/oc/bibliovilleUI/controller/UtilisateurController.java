@@ -27,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.oc.bibliovilleUI.entity.Utilisateur;
 import com.oc.bibliovilleUI.form.FormConnexion;
+import com.oc.moko.lade.form.FormConnection;
 
 @Controller
 @RequestMapping(path="utilisateur")
@@ -54,6 +55,22 @@ public class UtilisateurController {
     public String connectionUtilisateur(Model model) {
         model.addAttribute(ATT_FORM_CONNEXION, new FormConnexion());
         return "connexionUtilisateur";
+    }
+
+    @PostMapping("/traitement_formulaire_connection")
+    public String traitementConnectionUtilisateur(HttpServletRequest request, @Valid @ModelAttribute("formConnection") FormConnexion formConnexion, BindingResult bindingResult, Model model) {
+    	HttpSession session = request.getSession();
+    	
+    	if(bindingResult.hasErrors()) {
+//        	session.setAttribute(ATT_SESSION_STATUT, false);
+	        return "connection_utilisateur";
+		} else {
+//			Utilisateur utilisateur = utilisateurService.selectionUtilisateurParEmail(formConnexion.getEmailFormConnexion());
+//        	session.setAttribute(ATT_SESSION_STATUT, true);
+//			session.setAttribute(ATT_UTILISATEUR, utilisateur);
+//			model.addAttribute(ATT_UTILISATEUR, utilisateur);
+	        return "redirect:/topo/liste_reservations_topo";
+		}
     }
 
     @GetMapping("/selection_utilisateur_par_id/{idUtilisateur}")
